@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+args=()
+
+for arg in "$@"; do
+    arg=${arg//\'/\'\\\'\'}
+    args+=("'$arg'")
+done
+
+exec j4-dmenu-desktop --dmenu="dmenu ${args[*]}"
