@@ -34,6 +34,9 @@ dist: clean
 	gzip dmenu-$(VERSION).tar
 	rm -rf dmenu-$(VERSION)
 
+compile_commands:
+	bear --output compile_commands.json -- make clean all
+
 install: all
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
 	cp -f dmenu dmenu_path dmenu_run dmenu_desktop_run stest $(DESTDIR)$(PREFIX)/bin

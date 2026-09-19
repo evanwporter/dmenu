@@ -1,0 +1,5 @@
+*.o
+.direnv/
+dmenu
+stest
+compile_commands.json
