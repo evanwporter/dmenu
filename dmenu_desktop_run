@@ -3,8 +3,21 @@
 args=()
 
 for arg in "$@"; do
-    arg=${arg//\'/\'\\\'\'}
-    args+=("'$arg'")
+    printf -v quoted '%q' "$arg"
+    args+=("$quoted")
 done
 
-exec j4-dmenu-desktop --dmenu="dmenu ${args[*]}"
+cmd="dmenu ${args[*]}"
+logfile="$HOME/dmenu.txt"
+
+{
+    printf 'Arguments received:\n'
+    printf '  <%s>\n' "$@"
+
+    printf '\nCommand passed to j4-dmenu-desktop:\n'
+    printf '%s\n' "$cmd"
+
+    printf '\n'
+} >>"$logfile"
+
+exec j4-dmenu-desktop --dmenu="$cmd" >>"$logfile" 2>&1
